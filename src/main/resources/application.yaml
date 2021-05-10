@@ -1,4 +1,4 @@
 
 bot:
   username: Kliman_first_boot
-  token: 1668633400:AAFNp6tFhcG4Z7W8eqjH3gmthVGtYs5M2i4
+  token: ${Kliman_first_bot_token}
