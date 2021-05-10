@@ -1,4 +1,4 @@
 
 bot:
   username: Kliman_first_boot
-  token: ${Kliman_first_bot_token}
+  token: ${KLIMAN_FIRST_BOT_TOKEN}
