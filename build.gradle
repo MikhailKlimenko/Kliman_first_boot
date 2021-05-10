@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation group: 'org.telegram', name: 'telegrambots-spring-boot-starter', version: '5.2.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
