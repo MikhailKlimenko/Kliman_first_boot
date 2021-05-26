@@ -1,3 +1,29 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/hundai
+    username: postgres
+    password: postgres
+    sql-script-encoding: utf-8
+    hikari:
+      maximum-pool-size: 400
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: ${DDL_AUTO:none}
+    database: postgresql
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true # отключает ошибку в spring, error: "java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.PgConnection.createClob() ещё не реализован"
+        temp:
+          use_jdbc_metadata_defaults: false
 
 bot:
   username: Kliman_first_boot

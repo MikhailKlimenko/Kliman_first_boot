@@ -1,32 +1,45 @@
 package ru.mkliman.Kliman_first_boot.bot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.mkliman.Kliman_first_boot.command.CommandContainer;
+import ru.mkliman.Kliman_first_boot.service.CarService;
 import ru.mkliman.Kliman_first_boot.service.SendBotMessageServiceImpl;
+import ru.mkliman.Kliman_first_boot.service.TelegramUserService;
+
+import javax.annotation.PostConstruct;
 
 import static ru.mkliman.Kliman_first_boot.command.CommandName.NO;
 
 @Component
-public class JavarushTelegramBot extends TelegramLongPollingBot {
+public class KlimanFirstBot extends TelegramLongPollingBot {
 
     public static String COMMAND_PREFIX = "/";
-
-
+    private final CommandContainer commandContainer;
     @Value("${bot.username}")
     private String username;
-
     @Value("${bot.token}")
     private String token;
 
-    private final CommandContainer commandContainer;
+    @Autowired
+    private CarService carService;
 
-    public JavarushTelegramBot() {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
+    @Autowired
+    public KlimanFirstBot(TelegramUserService telegramUserService) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
+    }
+
+    @PostConstruct
+    private void init() {
+        Runnable task = () -> {
+            System.out.println("GO GO GO FIND CAR!");
+            carService.findCar();
+        };
+        Thread thread = new Thread(task);
+        thread.start();
     }
 
     @Override

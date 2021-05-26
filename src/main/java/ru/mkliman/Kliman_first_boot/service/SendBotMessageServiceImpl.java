@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.mkliman.Kliman_first_boot.bot.JavarushTelegramBot;
+import ru.mkliman.Kliman_first_boot.bot.KlimanFirstBot;
 
 /**
  * Implementation of {@link SendBotMessageService} interface.
@@ -12,11 +12,11 @@ import ru.mkliman.Kliman_first_boot.bot.JavarushTelegramBot;
 @Service
 public class SendBotMessageServiceImpl implements SendBotMessageService {
 
-    private final JavarushTelegramBot javarushBot;
+    private final KlimanFirstBot klimanFirstBot;
 
     @Autowired
-    public SendBotMessageServiceImpl(JavarushTelegramBot javarushBot) {
-        this.javarushBot = javarushBot;
+    public SendBotMessageServiceImpl(KlimanFirstBot klimanFirstBot) {
+        this.klimanFirstBot = klimanFirstBot;
     }
 
     @Override
@@ -27,10 +27,10 @@ public class SendBotMessageServiceImpl implements SendBotMessageService {
         sendMessage.setText(message);
 
         try {
-            javarushBot.execute(sendMessage);
+            klimanFirstBot.execute(sendMessage);
         } catch (TelegramApiException e) {
             //todo add logging to the project.
-            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
